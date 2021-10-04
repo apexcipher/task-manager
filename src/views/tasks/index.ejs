@@ -1,0 +1,82 @@
+<div class="login-form">
+  <br />
+  <a href="/task-add" class="btn btn-primary pull-right" style="margin: 5px">Add Task</a>
+  <br />
+  <table class="table table-bordered">
+    <tr>
+      <th>Sr. no.</th>
+      <th>Buxket Name</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Priority</th>
+      <th>Action</th>
+    </tr>
+    <% taskListItems.forEach(function(item,index){ %>
+    <tr>
+      <td><%= item.id %></td>
+      <td><%= item.bucket_name %></td>
+      <td><%= item.title %></td>
+      <td><%= item.description %></td>
+      <td>
+        <%if (item.status == 'complete') { %>
+          <span class="label label-success">
+            <%= item.status %>
+          </span>
+        <% } else { %>
+          <span class="label label-default">
+            <%= item.status %>
+          </span>
+        <% } %>
+        
+      </td>
+      <td>
+        <%if (item.priority == 'Low') { %>
+          <span class="label label-info">
+            <%= item.priority %>
+          </span>
+        <% } else if (item.priority == 'Medium') { %>
+          <span class="label label-warning">
+            <%= item.priority %>
+          </span>
+        <% } else if (item.priority == 'High'){ %>
+          <span class="label label-danger">
+            <%= item.priority %>
+          </span>
+        <% } %>
+      </td>
+      <td>
+        <a
+          href="/tasks-edit/<%= item.id %>"
+          class="btn btn-warning btn-sm edit-button"
+          >Edit</a
+        >
+        <button
+          onClick="remove(<%= item.id %>)"
+          class="btn btn-danger btn-sm delete-button"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+    <% }) %>
+  </table>
+</div>
+<script>
+  function remove(id) {
+    console.log("id", id);
+    fetch("/task-delete/" + id, {
+      method: "delete",
+      headers: { "Content-Type": "application/json" },
+      // body: JSON.stringify({
+      //   name: 'Darth Vadar'
+      // })
+    }).then((res) => {
+      console.log(res);
+      if (res.ok) {
+        alert("Deleted");
+        window.location.reload();
+      }
+    });
+  }
+</script>

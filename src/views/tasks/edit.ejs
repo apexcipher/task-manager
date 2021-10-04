@@ -1,0 +1,60 @@
+<form method="post" action="/task-update">
+  <h3>Edit task</h3>
+  <div class="form-group">
+    <label for="title">Title :</label>
+    <input type="hidden" name="id" required value="<%=res[0].id%>" />
+    <input
+      type="text"
+      class="form-control"
+      id="title"
+      name="title"
+      value="<%=res[0].title%>"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="description"
+      name="description"
+      value="<%=res[0].description%>"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="due_on">Due on:</label>
+    <input
+      type="datetime-local"
+      class="form-control"
+      id="due_on"
+      name="due_on"
+      value="<%=res[0].due_on %>"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="priority">Priority:</label>
+    <select class="form-control" id="priority" name="priority">
+      <option value="Low" <%= res[0].priority === 'Low' ? 'selected' : '' %>>Low</option>
+      <option value="Medium" <%= res[0].priority === 'Medium' ? 'selected' : '' %>>Medium</option>
+      <option value="High" <%= res[0].priority === 'High' ? 'selected' : '' %>>High</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="status">Status:</label>
+    <select class="form-control" id="status" name="status">
+      <option value="incomplete" <%= res[0].status === 'incomplete' ? 'selected' : '' %>>Incomplete</option>
+      <option value="complete" <%= res[0].status === 'complete' ? 'selected' : '' %>>Complete</option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-success">Save</button>
+</form>
+<script>
+  var now = new Date('<%=res[0].due_on%>');
+now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+document.getElementById('due_on').value = now.toISOString().slice(0,16);
+</script>

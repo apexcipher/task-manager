@@ -1,0 +1,8 @@
+<form method="post" action="/bucket-update">
+    <h3>Edit bucket</h3>
+    <hr>
+    <label for="bucket_name"><b>Name</b></label>
+    <input type="hidden" name="id" required value="<%=res[0].id%>">
+    <input type="text" placeholder="Bucket Name" name="bucket_name" required value="<%=res[0].name%>">
+    <button type="submit" class="btn btn-success">Save</button>
+</form>

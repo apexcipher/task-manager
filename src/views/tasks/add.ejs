@@ -1,0 +1,39 @@
+<form method="post" action="/task-save">
+      <h3>Add task</h3>
+     
+      <div class="form-group">
+        <label for="bucket_id">Select Bucket :</label>
+        <select class="form-control" id="bucket_id" name="bucket_id">
+          <option value="">Select</option>
+          <% bucketListItems.forEach(function(item,index){ %>
+          <option value="<%=item.id%>"><%=item.name%></option>
+          <% }) %>
+        </select> 
+      </div>
+
+      <div class="form-group">
+        <label for="title">Title :</label>
+        <input type="text" class="form-control" id="title" name="title">
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <input type="text" class="form-control" id="description" name="description">
+      </div>
+
+      <div class="form-group">
+        <label for="due_on">Due on:</label>
+        <input type="datetime-local"  class="form-control" id="due_on" name="due_on">
+      </div>
+
+      <div class="form-group">
+        <label for="priority">Priority:</label>
+        <select class="form-control" id="priority" name="priority">
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-success add-button">Save</button>
+  </form>

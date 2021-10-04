@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="login-form">
+      
+      <a href="/bucket-add" class="btn btn-primary pull-right" style="margin: 5px">Add Bucket</a>
+
+      <table class="table table-bordered">
+        <tr>
+          <th>Sr. no.</th>
+          <th>Name</th>
+          <th>Action</th>
+        </tr>
+        <% bucketListItems.forEach(function(item,index){ %>
+        <tr>
+          <td><%= item.id %></td>
+          <td><%= item.name %></td>
+          <td>
+            <a href="/buckets-edit/<%= item.id %>" 
+              class="btn btn-warning btn-sm edit-button"
+              >Edit</a>
+            <button
+              onClick="remove(<%= item.id %>)"
+              class="btn btn-danger btn-sm delete-button"
+              >Delete</button>
+              
+          </td>
+        </tr>
+        <% }) %>
+      </table>
+    </div>
+    <script>
+      
+      function remove(id) {
+        console.log("id", id);
+        fetch('/bucket-delete/'+id, {
+          method: 'delete',
+          headers: { 'Content-Type': 'application/json' },
+          // body: JSON.stringify({
+          //   name: 'Darth Vadar'
+          // })
+        })
+          .then((res) => {
+            console.log(res);
+           if(res.ok){
+            alert('Deleted')
+            window.location.reload()
+           }
+          });
+      };
+    </script>
+  </body>
+</html>
